@@ -1,5 +1,8 @@
 <?php
 
+use \Illuminate\Support\Facades\Broadcast;
+use \Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -11,6 +14,10 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('chat', function () {
+    return Auth::check();
+});
+
+Broadcast::channel('chat.members', function ($user) {
+    return ['user' => $user];
 });

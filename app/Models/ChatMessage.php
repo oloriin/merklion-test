@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class ChatMessage extends Model
 {
-    protected $fillable = ["chat_messages"];
+    protected $fillable = ['user_id', 'message'];
 
     /**
      * A message belong to a user

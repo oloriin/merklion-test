@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
+use App\Events\UserJoined;
+use App\Events\UserLeft;
+use App\Listeners\SetUserAsOffline;
+use App\Listeners\SetUserAsOnline;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +21,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        UserJoined::class => [
+            SetUserAsOnline::class,
+        ],
+        UserLeft::class => [
+            SetUserAsOffline::class,
+        ],
     ];
 
     /**
@@ -28,7 +37,5 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }
